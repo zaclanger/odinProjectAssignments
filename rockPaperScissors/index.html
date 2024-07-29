@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>Rock, Paper, Scissors</title>
+  </head>
+
+  <body>
+    <script>
+
+      let playerScore = 0;
+      let computerScore = 0;
+
+      // Game loop
+      for (let i = 1; i <= 5; i++) {
+        let computerChoice = getComputerChoice();
+        let playerChoice = getHumanChoice();
+        let playerWin = playRound(playerChoice.toLowerCase(), computerChoice.toLowerCase());
+
+        (playerWin) ? playerScore++ : computerScore++;
+
+        console.log(`Your choice: ${playerChoice}`);
+        console.log(`Computer choice: ${computerChoice}`);
+        (playerWin) ? console.log("You win!") : console.log("Computer wins!");
+        console.log(`Your score: ${playerScore}\tComputer score: ${computerScore}`);
+      }
+
+      // Prompt user for a choice
+      function getHumanChoice() {
+        let answer = prompt("Rock, paper, or scissors? ");
+        return answer;
+      }
+
+      // Generate computer choice randomly
+      function getComputerChoice() {
+        let playNum = Math.random()
+        let play = (playNum <= 0.33) ? "Rock" :
+                   (playNum <= 0.66) ? "Paper" :
+                                       "Scissors";
+        return play;
+      }
+
+      // Runs an iteration of the gameplay loop
+      function playRound(playerChoice, computerChoice) {
+        let win = false;
+
+        if (computerChoice === playerChoice) {
+          console.log("It's a tie!");
+        } else if (computerChoice === "rock") {
+          win = (playerChoice === "paper") ? true : false;
+        } else if (computerChoice === "paper") {
+          win = (playerChoice === "scissors") ? true : false;
+        } else if (computerChoice === "scissors") {
+          win = (playerChoice === "rock") ? true : false;
+        }
+
+        return win;
+      }
+
+    </script>
+  </body>
+</html>
