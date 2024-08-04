@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <title>DOM Methods Test</title>
+  </head>
+  <body>
+    <button id="btn">CLICK ME</button>
+
+    <div id="container"></div>
+    <script>
+
+      const container = document.querySelector("#container");
+
+      const content = document.createElement("div");
+      content.classList.add("content");
+
+      const paragraph = document.createElement("p");
+      paragraph.textContent = "Hey I'm red!";
+      paragraph.style.color = "red";
+      content.appendChild(paragraph);
+
+      const blueHeader = document.createElement("h3");
+      blueHeader.textContent = "Hey I'm blue!";
+      blueHeader.style.color = "blue";
+      content.appendChild(blueHeader);
+
+      container.appendChild(content);
+
+      const uglyDiv = document.createElement("div");
+      uglyDiv.style.backgroundColor = "pink";
+      uglyDiv.style.borderColor = "black";
+
+      const header = document.createElement("h1");
+      header.textContent = "I'm in a div!";
+      uglyDiv.appendChild(header);
+
+      const subParagraph = document.createElement("p");
+      subParagraph.textContent = "ME TOO!";
+      uglyDiv.appendChild(subParagraph);
+
+      container.appendChild(uglyDiv);
+
+      // Event Handler Test
+
+      const btn = document.querySelector("#btn");
+      btn.addEventListener("click", function (e) {
+        console.log(e.target);
+        e.target.style.background = "blue";
+      });
+
+    </script>
+  </body>
+</html>
