@@ -5,55 +5,104 @@
   </head>
 
   <body>
+    <ul id="container">
+    </ul>
+
     <script>
 
       let playerScore = 0;
       let computerScore = 0;
 
-      // Game loop
-      for (let i = 1; i <= 5; i++) {
-        let computerChoice = getComputerChoice();
-        let playerChoice = getHumanChoice();
-        let playerWin = playRound(playerChoice.toLowerCase(), computerChoice.toLowerCase());
+      const container = document.querySelector("#container");
 
-        (playerWin) ? playerScore++ : computerScore++;
+      const playerScoreDisplay = document.createElement("li");
+      playerScoreDisplay.textContent = `Player Score: ${playerScore}`;
+      container.appendChild(playerScoreDisplay);
 
-        console.log(`Your choice: ${playerChoice}`);
-        console.log(`Computer choice: ${computerChoice}`);
-        (playerWin) ? console.log("You win!") : console.log("Computer wins!");
-        console.log(`Your score: ${playerScore}\tComputer score: ${computerScore}`);
-      }
+      const computerScoreDisplay = document.createElement("li");
+      computerScoreDisplay.textContent = `Computer Score: ${computerScore}`;
+      container.appendChild(computerScoreDisplay);
 
-      // Prompt user for a choice
-      function getHumanChoice() {
-        let answer = prompt("Rock, paper, or scissors? ");
-        return answer;
+      const rockButton = document.createElement("button");
+      rockButton.textContent = "Rock";
+      rockButton.addEventListener("click", function() {
+        playRound("rock", getComputerChoice());
+      });
+      container.appendChild(rockButton);
+
+      const paperButton = document.createElement("button");
+      paperButton.textContent = "Paper";
+      paperButton.addEventListener("click", function() {
+        playRound("paper", getComputerChoice());
+      });
+      container.appendChild(paperButton);
+
+      const scissorsButton = document.createElement("button");
+      scissorsButton.textContent = "Scissors";
+      scissorsButton.addEventListener("click", function() {
+        playRound("scissors", getComputerChoice());
+      });
+      container.appendChild(scissorsButton);
+
+      const buttons = document.querySelectorAll("button");
+      for (let i = 0; i < buttons.length; i++) {
+        buttons[i].style.fontSize = "20px";
+        buttons[i].style.margin = "5px";
       }
 
       // Generate computer choice randomly
       function getComputerChoice() {
         let playNum = Math.random()
-        let play = (playNum <= 0.33) ? "Rock" :
-                   (playNum <= 0.66) ? "Paper" :
-                                       "Scissors";
+        let play = (playNum <= 0.33) ? "rock" :
+                   (playNum <= 0.66) ? "paper" :
+                                       "scissors";
+        console.log(`Computer choice: ${play}`);
         return play;
       }
 
       // Runs an iteration of the gameplay loop
       function playRound(playerChoice, computerChoice) {
-        let win = false;
+        let win = 0;
 
         if (computerChoice === playerChoice) {
-          console.log("It's a tie!");
+          win = 0;
         } else if (computerChoice === "rock") {
-          win = (playerChoice === "paper") ? true : false;
+          win = (playerChoice === "paper") ? 1 : 2;
         } else if (computerChoice === "paper") {
-          win = (playerChoice === "scissors") ? true : false;
+          win = (playerChoice === "scissors") ? 1 : 2;
         } else if (computerChoice === "scissors") {
-          win = (playerChoice === "rock") ? true : false;
+          win = (playerChoice === "rock") ? 1 : 2;
         }
 
-        return win;
+        switch (win) {
+          case 0:
+            console.log("It's a tie!");
+            break;
+          case 1:
+            console.log("You win!");
+            playerScore++;
+            playerScoreDisplay.textContent = `Player Score: ${playerScore}`;
+            break;
+          case 2:
+            console.log("Computer wins!");
+            computerScore++;
+            computerScoreDisplay.textContent = `Computer Score: ${computerScore}`;
+            break;
+          default:
+            console.log("Something went wrong!");
+        }
+        
+        if (playerScore >= 5) {
+          alert("You win!!!");
+          playerScore = 0;
+          computerScore = 0;
+          playerScoreDisplay.textContent = `Player Score: ${playerScore}`;
+          computerScoreDisplay.textContent = `Computer Score: ${computerScore}`;
+        } else if (computerScore >= 5) {
+          alert("Computer wins!!!");
+          playerScoreDisplay.textContent = `Player Score: ${playerScore}`;
+          computerScoreDisplay.textContent = `Computer Score: ${computerScore}`;
+        }
       }
 
     </script>
