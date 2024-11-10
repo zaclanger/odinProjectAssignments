@@ -1,0 +1,39 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="index.css">
+    <title>Etch-a-Sketch</title>
+  </head>
+
+  <body>
+    <div id="container">
+    </div>
+
+    <script>
+
+      const container = document.querySelector("#container");
+
+      for (let i=0; i<16; i++) {
+        const row = document.createElement("div");
+        row.classList.add("row");
+
+        for (let j=0; j<16; j++) {
+          const element = document.createElement("div");
+          element.classList.add("element");
+          element.addEventListener("click", function() {
+            if (element.classList.contains("shaded")) {
+              element.classList.remove("shaded");
+            } else {
+              element.classList.add("shaded");
+            }
+          });
+          row.appendChild(element);
+        }
+
+        container.appendChild(row);
+      }
+
+    </script>
+  </body>
+</html>
